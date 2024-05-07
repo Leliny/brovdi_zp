@@ -1,0 +1,66 @@
+<template  >
+  <router-link to="/structure/tree/b-tree">
+    <v-btn
+        class="button2S"
+        color="grey"
+        dark
+    >
+      STUDY
+    </v-btn>
+  </router-link>
+  <div >
+    <h2 class="theorylit">Literature of B-Tree</h2>
+    <br><br>
+    <ul class="sources theorylit" >
+      <li> https://www.postgresql.org/docs/current/btree-behavior.html</li><br>
+      <li> https://learningforsustainability.net/conceptual-modelling/</li><br>
+      <li> https://learningforsustainability.net/conceptual-modelling/</li><br>
+    </ul>
+    <v-img src="@/assets/image/source.png" alt="sourceImg" class="img1"/>
+    <v-img src="@/assets/image/source.png" alt="sourceImg" class="img2"/>
+    <v-img src="@/assets/image/book.png" alt="sourceImg" class="img3"/>
+  </div>
+
+</template>
+
+<script>
+export default {
+  name: 'TheoryLiterature',
+};
+</script>
+
+<style scoped>
+
+.theorylit{
+  font-family: 'Inconsolata', monospace;
+  text-align: left;
+  margin-top: 40px;
+  margin-left: 300px;
+}
+.button2S {
+  min-width: fit-content !important;
+  max-height: 30px;
+  margin-top: 40px;
+  border-radius:30px;
+  top: -57px;
+  right: -1348px;
+}
+.img1{
+  max-height: 30px;
+  margin-right: 16.6em;
+  margin-top: -9.5em;
+  z-index: 2;
+}
+.img2{
+  max-height: 30px;
+  margin-right: 16.6em;
+  margin-top: 1.3em;
+  z-index: 2;
+}
+.img3{
+   max-height: 30px;
+   margin-right: 15.9em;
+   margin-top: 1.3em;
+   z-index: 2;
+ }
+</style>
