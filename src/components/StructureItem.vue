@@ -31,7 +31,7 @@ export default {
   max-width: 300px;
   line-height: 50px;
   font-weight: unset;
-  font-size: 17px;
+  font-size: 16px;
   font-family: 'Inconsolata', monospace; /* Встановлює шрифт Inconsolata */
   margin-left: 10px;
 }

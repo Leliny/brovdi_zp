@@ -7,7 +7,7 @@ import TreeVisualizer from './components/TreeVisualizer.vue';
 import HelloImg from "./components/HelloImg.vue";
 import StudyLiterature from "@/components/StudyLiterature.vue";
 import StudyVideo from "@/components/StudyVideo.vue";
-import Hashstatic from "../hash/HashStatic.vue";
+import Hashstatic from "./components/HashStatic.vue";
 
 const routes = [
   { path: '/structure/tree/:code', component: TreeVisualizer },

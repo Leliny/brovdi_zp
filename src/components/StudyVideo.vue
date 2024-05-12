@@ -1,4 +1,13 @@
 <template>
+  <router-link to="/study/theory/btree">
+    <v-btn
+        class="button-back"
+        color="white"
+        dark
+    >
+      &lt;
+    </v-btn>
+  </router-link>
   <div>
     <router-link to="/structure/tree/b-tree">
       <v-btn class="button2S" color="grey" dark>STUDY</v-btn>
@@ -50,16 +59,18 @@ export default {
 /* Зображення */
 .theoryvideo {
   font-family: 'Inconsolata', monospace;
-  margin-top: 1em;
-  margin-right: -30em;
+  margin-top: 0.7em;
+  margin-right: -35em;
+  transform: scale(0.9);
+  transform-origin: top left;
 }
 
 /* Кнопка */
 .button2S {
   min-width: fit-content !important;
-  max-height: 30px;
-  margin-top: -1.2em;
-  margin-right: -198.8em;
+  max-height: 27px;
+  margin-top: -1.5em;
+  margin-right: -172.5em;
   border-radius: 30px;
 }
 .position1{
@@ -69,5 +80,17 @@ export default {
 .position2{
   margin-top: 30em;
   margin-right: -90em;
+}
+
+.button-back {
+  min-width: 10px;
+  max-height: 35px;
+  margin-top: 40px;
+  border-radius:30px;
+  border: 1px solid #bdbbbb; /* Чорне обрамлення */
+  right: -260px;
+  font-weight: bold;
+  font-size: 20px;
+  z-index: 4;
 }
 </style>

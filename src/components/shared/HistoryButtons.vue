@@ -1,6 +1,6 @@
 <template>
-  <div class="step-interface-container">
-    <div class="flex button-container">
+  <div class="step-interface-container button-container">
+    <div >
       <v-btn
         class="button yellow lighten-4"
         :disabled="disabled.backButtonIsDisabled || disabled.isAnimating"
@@ -16,7 +16,7 @@
         <strong>&gt;</strong>
       </v-btn>
     </div>
-    <span class="text-sm">{{ label }}</span>
+    <span class="text-sm1" top="10px">{{ label }}</span>
   </div>
 </template>
 
@@ -42,14 +42,22 @@ export default {
 
 <style scoped>
 .button-container {
-  width: 100%;
+  width: 90%;
   max-width: 200px;
-
+  transform: scale(0.90);
+  right: -10px;
 }
+
 .button {
   min-width: fit-content !important;
   font-size: 1.5rem !important;
   background-color: gainsboro;
+  top:2px;
 
+}
+.text-sm1{
+  font-family: 'Inconsolata', monospace;
+  font-size: 16px; /* Reduced font size */
+  margin-top: 20px;
 }
 </style>

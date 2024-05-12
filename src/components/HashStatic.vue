@@ -1,15 +1,11 @@
 <template>
-  <div>
-    <v-select v-model="numberOfSlots" :items="slotOptions" class="hashInputsize" label="Choose number of slots" @change="updateHashTable"></v-select>
+  <div class="hashcomponents">
+    <v-select v-model="numberOfSlots" :items="slotOptions" class="hashInputsize" label="Choose size" @change="updateHashTable"></v-select>
     <v-text-field v-model="inputData" class="hashInput" label="Enter data to hash"></v-text-field>
     <v-btn @click="hashData" class="button_hash">Hash Data</v-btn>
     <v-text-field v-model="deleteData" class="hashDelete" label="Delete data to hash"></v-text-field>
-    <v-btn @click="deleteDataFromHash" class="button_delete">Delete</v-btn>
-
-
-
-    <!-- Опис дій -->
-    <div v-html="description"></div>
+   <v-btn @click="deleteDataFromHash" class="button_delete">Delete</v-btn>
+    <div v-html="description" class="descript"></div>
     <svg ref="svgCanvas" class="hashOutput"></svg>
   </div>
 </template>
@@ -24,31 +20,22 @@ export default {
       deleteData: '',
       hashTable: [],
       numberOfSlots: '', // Default number of slots
-      slotOptions: [5, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 18], // Options for number of slots
+      slotOptions: [ 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 18], // Options for number of slots
       description: '' // Опис дій для відображення на сторінці
     };
   },
   watch: {
     numberOfSlots() {
       if (this.numberOfSlots < 1) {
-        this.numberOfSlots = 1; // Мінімальна кількість ячейок - 1
-      }
-      this.updateHashTable(); // Викликаємо метод для оновлення таблиці
+        this.numberOfSlots = 1;       }
+
+      this.updateHashTable();
     }
   },
   methods: {
+
     hashFunction(input) {
-      // Simple modulo hashing algorithm
-      let hashValue = input
-          .split('')
-          .reduce((acc, char) => acc + char.charCodeAt(0), 0) % this.hashTable.length;
-
-      // Забезпечення, що хеш не буде від'ємним
-      if (hashValue < 0) {
-        hashValue += this.hashTable.length;
-      }
-
-      return hashValue;
+      return input % this.hashTable.length;
     },
 
     clearInput() {
@@ -62,30 +49,30 @@ export default {
         return;
       }
 
-      // Шукаємо перше входження заданого числа
+      // Шукаємо та видаляємо елемент з таблиці
       let hashValue = this.hashFunction(this.deleteData);
-      let deleted = false;
+      let startIndex = hashValue;
+      let elementFound = false; // Флаг, що вказує, чи знайдено елемент у таблиці
 
-      // Перевіряємо, чи потрібно видалити число з поточної клітинки
-      if (this.hashTable[hashValue] === this.deleteData) {
-        this.hashTable[hashValue] = null;
-        deleted = true;
+      do {
+        if (this.hashTable[hashValue] === this.deleteData) {
+          this.hashTable[hashValue]='X'; // Заміна елементу на 'X'
+          elementFound = true;
+          break;
+        }
+        hashValue = (hashValue + 1) % this.hashTable.length; // Linear Probing
+      } while (hashValue !== startIndex);
+
+      if (!elementFound) {
+        alert('the number was not found');
+        // Тут можна вивести повідомлення користувачеві про те, що введеного числа не знайдено
       }
-
-      // Якщо було видалено хоча б один елемент, оновлюємо таблицю
-      if (deleted) {
-        this.updateHashTable();
-      }
-
-      // Очищаємо поле видалення
       this.clearDeleteInput();
-    }
-,
-    updateHashTable() {
-      this.clearInput(); // Очищуємо поле вводу
-      this.hashTable = Array(this.numberOfSlots).fill(null); // Оновлюємо таблицю з новою кількістю слотів
 
       // Візуалізуємо зміни в таблиці
+
+      let hashedData = startIndex;
+
       const svg = d3.select(this.$refs.svgCanvas);
       svg.selectAll("g").remove();
 
@@ -101,9 +88,16 @@ export default {
       group.append('rect')
           .attr('width', rectWidth)
           .attr('height', rectHeight)
-          .style('fill', 'white') // Заливка пустих клітинок
+          .style('fill', (d, i) => i === hashedData ? "#ddf1f5" : (d ? 'gray' : 'white'))
           .style('stroke', 'black')
           .style('stroke-width', 2);
+
+      group.append('text')
+          .attr('x', rectWidth / 2)
+          .attr('y', rectHeight / 2) // Зміщуємо текст у центр клітинки
+          .attr('text-anchor', 'middle')
+          .attr('alignment-baseline', 'central')
+          .text(d => d ? d : ''); // Виводимо значення під клітинкою
 
       group.append('text')
           .attr('x', rectWidth / 2)
@@ -111,6 +105,42 @@ export default {
           .attr('text-anchor', 'middle')
           .attr('alignment-baseline', 'central')
           .text((d, i) => i); // Додаємо номер індексу під кожною клітинкою
+
+
+    },
+    updateHashTable() {
+      this.clearInput();
+      this.hashTable = Array(this.numberOfSlots).fill(null);
+
+      const svg = d3.select(this.$refs.svgCanvas);
+      const rectWidth = 45;
+      const rectHeight = 30;
+
+      const group = svg.selectAll('g')
+          .data(this.hashTable, (d, i) => i);
+
+      const newGroup = group.enter()
+          .append('g')
+          .attr('transform', (d, i) => `translate(${i * rectWidth}, 0)`);
+
+      newGroup.append('rect')
+          .attr('width', rectWidth)
+          .attr('height', rectHeight)
+          .style('fill', 'white')
+          .style('stroke', 'black')
+          .style('stroke-width', 2);
+
+      newGroup.append('text')
+          .attr('x', rectWidth / 2)
+          .attr('y', rectHeight + 15)
+          .attr('text-anchor', 'middle')
+          .attr('alignment-baseline', 'central')
+          .text((d, i) => i);
+
+      group.select('text')
+          .text((d, i) => this.hashTable[i] !== null ? this.hashTable[i] : "X"); // Оновлення елементів з символом "X"
+
+      group.exit().remove(); // Видаляємо зайві елементи
     },
     hashData() {
       if (this.inputData.trim() === '') {
@@ -119,7 +149,15 @@ export default {
       let initialHash = this.hashFunction(this.inputData);
       let hashedData = initialHash;
 
-      // Linear Probing to handle collisions
+      // Додамо опис типу "(введене число)%(розмір таблиці)= (індекс)"
+      this.description = "(zadané číslo)%(veľkosť tabuľky)= (index)  --->     "+`${this.inputData} % ${this.hashTable.length} = ${initialHash}`;
+
+      if (!this.hashTable.includes(null)) {
+        alert('Hash table is full. Cannot add more items.');
+        return;
+      }
+
+        // Linear Probing to handle collisions
       while (this.hashTable[hashedData] !== null && this.hashTable[hashedData] !== this.inputData) {
         hashedData = (hashedData + 1) % this.hashTable.length;
       }
@@ -224,5 +262,16 @@ export default {
   margin-right: -50em;
   border-radius:5px;
   z-index: 1;
+}
+
+.descript{
+  font-family: 'Inconsolata', monospace; /* Встановлює шрифт Inconsolata */
+  margin-top: 40px;
+  margin-right: -30em;
+}
+
+.hashcomponents{
+  transform: scale(0.9);
+  transform-origin: top left;
 }
 </style>

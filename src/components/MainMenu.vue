@@ -6,7 +6,8 @@
     <v-divider class="vertical-divider"></v-divider>
 
     <!-- Додаємо умову v-if, щоб перевірити, чи ми не на початковій сторінці -->
-    <v-img v-if="$route.path !== '/'" src="@/assets/image/menuArrow.png" alt="MenuArr" max-height="150"/>
+    <v-img v-if="$route.path === '/structure/tree/b-tree'" src="@/assets/image/menuArrow.png" alt="MenuArr" max-height="150"/>
+    <v-img v-if="$route.path === '/structure/hash/static'" src="@/assets/image/menuArrow.png" alt="MenuArr" max-height="150" class="vimg"/>
 
     <v-container
         fluid
@@ -43,26 +44,6 @@ export default {
           code: 'static',
           structureType: 'hash',
         },
-        {
-          name: 'GiST',
-          code: 'gist',
-          structureType: 'gist',
-        },
-        {
-          name: 'SP-GiST',
-          code: 'sp-gist',
-          structureType: 'sp-gist',
-        },
-        {
-          name: 'GIN',
-          code: 'gin',
-          structureType: 'gin',
-        },
-        {
-          name: 'BRIN',
-          code: 'brin',
-          structureType: 'brin',
-        },
       ],
     };
   },
@@ -85,11 +66,18 @@ export default {
   left: -120px;
   z-index: 1; /* Нижній шар */
 }
-
 .v-img {
   position: relative;
   z-index: 2;
   top: 73px;
+  left: -20px;
+  max-width: 210px;
+}
+
+.vimg {
+  position: relative;
+  z-index: 2;
+  top: 124px;
   left: -20px;
   max-width: 210px;
 }

@@ -59,15 +59,16 @@ export default {
    font-size: 14px;
    margin-top: 80px;
    margin-left: -30px;
-   //max-width: 90%;
+   transform: scale(0.98);
+   transform-origin: top left;
  }
  .button2S {
    min-width: fit-content !important;
-   max-height: 30px;
+   max-height: 27px;
    margin-top: 40px;
    border-radius:30px;
-   top: -57px;
-   right: -1348px;
+   top: -58px;
+   right: -1214px;
  }
 
  .button3 {
@@ -77,6 +78,8 @@ export default {
    border-radius:30px;
    border: 1px solid black; /* Чорне обрамлення */
    right: -180px;
+   transform: scale(0.9);
+   transform-origin: top left;
  }
 
  .button4 {
@@ -86,5 +89,7 @@ export default {
    border-radius:30px;
    border: 1px solid black; /* Чорне обрамлення */
    right: -200px;
+   transform: scale(0.9);
+   transform-origin: top left;
  }
 </style>

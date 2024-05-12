@@ -10,14 +10,21 @@
         dense
     ></v-select>
 
-    <v-text-field
-        class="text-field"
-        color="blue"
-        placeholder="Insert a Value"
-        v-model="insertedValue"
-        @keyup.enter="insertValue"
-        title="To insert multiple values sequentially, type the numbers separated with a comma. Example: 10,20,30"
-    ></v-text-field>
+    <div class="input-container">
+      <v-text-field
+          class="text-field"
+          color="blue"
+          placeholder="Insert a Value"
+          v-model="insertedValue"
+          @keyup.enter="insertValue"
+          @mouseover="showInstructionOverlay = true"
+          @mouseleave="showInstructionOverlay = false"
+      ></v-text-field>
+      <div v-if="showInstructionOverlay" class="instruction-overlay">
+        To insert multiple values sequentially, type the numbers separated with a comma. Example: 10,20,30
+      </div>
+    </div>
+
     <v-btn
         class="button"
         color="#ddf1f5"
@@ -26,6 +33,15 @@
         @click="insertValue"
     >
       Insert
+    </v-btn>
+    <v-btn
+        class="buildtree"
+        color="#ddf1f5"
+        :disabled="disabled"
+        dark
+        @click="buildTree"
+    >
+      Build Tree
     </v-btn>
     <router-link to="/study/theory/btree">
       <v-btn
@@ -49,6 +65,7 @@ export default {
     return {
       insertedValue: '',
       selectedNumber: 2,
+      showInstructionOverlay: false // Added data property
     };
   },
   methods: {
@@ -58,57 +75,51 @@ export default {
         this.insertedValue = '';
       }
     },
+    buildTree(){
+      this.insertedValue="10, 20, 30, 35, 45, 50, 60, 70, 80";
+      this.insertValue();
+    }
   },
 };
 </script>
+
 <style>
 .text-field {
-  min-width: 230px;
+  min-width: 210px;
   min-height: 40px;
   max-width: 180px;
   max-height: 60px;
   margin-top: 50px;
   margin-left: 2em;
-  font-family: 'Inconsolata', monospace; /* Встановлює шрифт Inconsolata */
+  font-family: 'Inconsolata', monospace;
+  font-size: 14px; /* Reduced font size */
 }
 
 .select-field {
   margin-right: 1rem;
-   min-width: 110px;
-   min-height: 40px;
-   max-width: 180px;
-   max-height: 60px;
-   margin-top: 50px;
-   margin-left: -3em;
-   font-family: 'Inconsolata', monospace; /* Встановлює шрифт Inconsolata */
- }
-
-.text-field::after {
-  content: attr(title);
-  position: absolute;
-  top: 100%; /* Поміщаємо уточнення нижче поля вводу */
-  left: 0;
-  width: 100%;
-  background-color: #fff; /* Колір фону уточнення */
-  border: 1px solid #000; /* Рамка уточнення */
-  border-radius: 20px; /* Заокруглені краї рамки */
-  padding: 5px; /* Відступи внутрішнього вмісту уточнення */
-  font-size: 0.8rem; /* Розмір тексту уточнення */
-  color: #333; /* Колір тексту уточнення */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Тінь для уточнення */
-  z-index: 9999; /* Шар, щоб уточнення було над іншим вмістом */
+  min-width: 105px;
+  min-height: 40px;
+  max-width: 180px;
+  max-height: 60px;
+  margin-top: 50px;
+  margin-left: -3em;
+  font-family: 'Inconsolata', monospace;
 }
+
 .flex {
   display: flex;
   right: 50px;
 }
 
 .button-container {
-  width: 100%;
+  transform: scale(0.9);
+  transform-origin: top left;
 }
-.text-field{
+
+.text-field {
   margin-right: 1rem;
 }
+
 .button {
   min-width: fit-content !important;
   margin-top: 40px;
@@ -118,14 +129,34 @@ export default {
 
 .button2 {
   min-width: fit-content !important;
-  max-height: 30px;
+  max-height: 28px;
   margin-top: 30px;
   border-radius:30px;
-  top: -70px;
-  right: -692px;
+  top: -68px;
+  right: -608px;
 }
-/*.error {
-  --v-text-field-label-color: red !important;
-  --v-text-field-border-color: red !important;
-}*/
+
+.instruction-overlay {
+  position: absolute;
+  background-color: rgba(200, 200, 200, 0.29);
+  padding: 5px;
+  border-radius: 5px;
+  width: 100%;
+  top: 100%;
+  left: 63%;
+  z-index: 999;
+  font-size: 12px; /* Reduced font size */
+  display: none; /* Initially hidden */
+}
+
+.input-container:hover .instruction-overlay {
+  display: block; /* Show on hover */
+}
+
+.buildtree{
+  min-width: fit-content !important;
+  margin-top: 40px;
+  right: 0px;
+  border-radius:15px;
+}
 </style>
