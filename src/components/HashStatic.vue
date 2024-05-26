@@ -1,10 +1,20 @@
 <template>
+  <router-link to="/study/theory/btree">
+    <v-btn
+        class="buttonpractice"
+        color="grey"
+        dark
+    >
+      Practice
+    </v-btn>
+  </router-link>
   <div class="hashcomponents">
+
     <v-select v-model="numberOfSlots" :items="slotOptions" class="hashInputsize" label="Choose size" @change="updateHashTable"></v-select>
     <v-text-field v-model="inputData" class="hashInput" label="Enter data to hash"></v-text-field>
-    <v-btn @click="hashData" class="button_hash">Hash Data</v-btn>
+    <v-btn @click="hashData" color="#ddf1f5" class="button_hash">Hash Data</v-btn>
     <v-text-field v-model="deleteData" class="hashDelete" label="Delete data to hash"></v-text-field>
-   <v-btn @click="deleteDataFromHash" class="button_delete">Delete</v-btn>
+   <v-btn @click="deleteDataFromHash" color="#ddf1f5" class="button_delete">Delete</v-btn>
     <div v-html="description" class="descript"></div>
     <svg ref="svgCanvas" class="hashOutput"></svg>
   </div>
@@ -20,7 +30,7 @@ export default {
       deleteData: '',
       hashTable: [],
       numberOfSlots: '', // Default number of slots
-      slotOptions: [ 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 18], // Options for number of slots
+      slotOptions: [ 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 18, 25], // Options for number of slots
       description: '' // Опис дій для відображення на сторінці
     };
   },
@@ -88,7 +98,7 @@ export default {
       group.append('rect')
           .attr('width', rectWidth)
           .attr('height', rectHeight)
-          .style('fill', (d, i) => i === hashedData ? "#ddf1f5" : (d ? 'gray' : 'white'))
+          .style('fill', (d, i) => i === hashedData ? "#ddf1f5" : (d ? 'lightgray' : 'white'))
           .style('stroke', 'black')
           .style('stroke-width', 2);
 
@@ -184,7 +194,7 @@ export default {
       group.append('rect')
           .attr('width', rectWidth)
           .attr('height', rectHeight)
-          .style('fill', (d, i) => i === hashedData ? "#ddf1f5" : (d ? 'gray' : 'white'))
+          .style('fill', (d, i) => i === hashedData ? "#ddf1f5" : (d ? 'lightgray' : 'white'))
           .style('stroke', 'black')
           .style('stroke-width', 2);
 
@@ -273,5 +283,16 @@ export default {
 .hashcomponents{
   transform: scale(0.9);
   transform-origin: top left;
+}
+
+.buttonpractice {
+  min-width: fit-content !important;
+  max-height: 28px;
+  margin-top: 49px;
+  border-radius:30px;
+  top: -68px;
+  right: -1277px;
+  transform: scale(0.9);
+  font-family: 'Inconsolata', monospace; /* Встановлює шрифт Inconsolata */
 }
 </style>

@@ -67,8 +67,9 @@ export default {
    max-height: 27px;
    margin-top: 40px;
    border-radius:30px;
-   top: -58px;
-   right: -1214px;
+   top: -59px;
+   right: -1211px;
+   font-family: 'Inconsolata', monospace; /* Встановлює шрифт Inconsolata */
  }
 
  .button3 {

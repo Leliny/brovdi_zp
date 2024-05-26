@@ -7,6 +7,7 @@
 
     <!-- Додаємо умову v-if, щоб перевірити, чи ми не на початковій сторінці -->
     <v-img v-if="$route.path === '/structure/tree/b-tree'" src="@/assets/image/menuArrow.png" alt="MenuArr" max-height="150"/>
+    <v-img v-if="$route.path === '/study/theory/btree/video'" src="@/assets/image/menuArrow.png" alt="MenuArr" max-height="150"/>
     <v-img v-if="$route.path === '/structure/hash/static'" src="@/assets/image/menuArrow.png" alt="MenuArr" max-height="150" class="vimg"/>
 
     <v-container
